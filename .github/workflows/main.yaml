@@ -17,7 +17,7 @@ jobs:
         run: |
           value1='This is the first value'
 
-          echo "::set-output nane=first_value::$value1"
+          echo "::set-output name=first_value::$value1"
 
       - name: Set ouput variable value 2
         id: second
@@ -25,7 +25,7 @@ jobs:
         run: |
           $value2 = "This is the first value"
 
-          echo "::set-output nane=second_value::$value2"
+          echo "::set-output name=second_value::$value2"
 
       - name: Check output values
         shell: bash
