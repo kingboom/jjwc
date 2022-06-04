@@ -38,10 +38,39 @@ jobs:
       - name: Create artifact
         shell: bash
         run: |
-          dotnet publish ./api -c Release -o ./api/bin/publish
+          dotnet publish ./api -c Release -o ./api/bin/published
 
       - name: Upload artifact
         uses: actions/upload-artifact@v2
         with:
           name: apiapp
-          path: ./api/bin/published
+          path: api/bin/published
+
+  release:
+    name: 'Release App'
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: apiapp
+          path: artifacts/api
+
+      - name: Zip artifact
+        shell: bash
+        run: |
+          pushd artifacts/api
+          zip -qq -r apiapp.zip
+          popd
+
+          mv artifacts/api/apiapp.zip artifacts/apiapp.zip
+
+      - name: Release artifact to GitHub
+        uses: marvinpinto/action-automatic-releases@latest
+        widh:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          prerelease: false
+          files: |
+            artifacts/apiapp.zip
