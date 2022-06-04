@@ -23,7 +23,7 @@ jobs:
         id: second
         shell: pwsh
         run: |
-          $value2 = "This is the first value"
+          $value2 = "This is the second value"
 
           echo "::set-output name=second_value::$value2"
 
