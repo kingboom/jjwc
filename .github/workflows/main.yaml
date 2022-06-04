@@ -6,7 +6,7 @@ env:
   PRESET_VALUE: "This is the value preset"
 
 jobs:
-  first_job: 
+  first_job:
     name: 'First Job'
     runs-on: ubuntu-latest
 
